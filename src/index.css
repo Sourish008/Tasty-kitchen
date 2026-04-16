@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Outfit', 'Inter', system-ui, sans-serif;
+  --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
+  
+  --color-primary-50: #fff1f2;
+  --color-primary-100: #ffe4e6;
+  --color-primary-500: #f43f5e;
+  --color-primary-600: #e11d48;
+  --color-primary-900: #881337;
+
+  --color-surface: #ffffff;
+  --color-surface-dark: #121212;
+  --color-surface-hover: #f9fafb;
+}
+
+@layer base {
+  :root {
+    --bg-main: #fafafa;
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-main: #0f1115;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-color: #1f2937;
+      --glass-bg: rgba(15, 17, 21, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+}
+
+/* Custom component classes — NOT inside @layer so they're always available */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-primary-600);
+  color: #fff;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+.btn-primary:hover {
+  background-color: var(--color-primary-900);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+.btn-primary:active {
+  transform: scale(0.95);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: var(--color-primary-600);
+  border: 1px solid var(--color-primary-600);
+  border-radius: 0.75rem;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
+}
+.btn-secondary:hover {
+  background-color: var(--color-primary-50);
+}
+.btn-secondary:active {
+  transform: scale(0.95);
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  outline: none;
+  transition: all 0.2s;
+}
+.input-field:focus {
+  box-shadow: 0 0 0 2px var(--color-primary-500);
+  border-color: transparent;
+}
