@@ -28,7 +28,35 @@ const Checkout = () => {
     setLoading(true);
     setError(null);
 
+    const loadRazorpayScript = () => {
+      return new Promise((resolve) => {
+        const script = document.createElement('script');
+        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+        script.onload = () => resolve(true);
+        script.onerror = () => resolve(false);
+        document.body.appendChild(script);
+      });
+    };
+
     try {
+      const isLoaded = await loadRazorpayScript();
+      if (!isLoaded) {
+        throw new Error('Razorpay SDK failed to load. Please check your connection.');
+      }
+
+      // Call edge function to create order
+      const { data: functionData, error: functionError } = await supabase.functions.invoke('create-razorpay-order', {
+        body: { amount: grandTotal }
+      });
+
+      if (functionError) throw new Error(functionError.message);
+      if (functionData?.error) throw new Error(functionData.error);
+      
+      const razorpayKeyId = import.meta.env.VITE_RAZORPAY_KEY_ID;
+      if (!razorpayKeyId) {
+         throw new Error("Razorpay Key ID is not configured.");
+      }
+
       // Create order payload strictly matching the JSONB schema
       const orderItems = items.map(item => ({
         id: item.id,
@@ -37,26 +65,58 @@ const Checkout = () => {
         qty: item.qty
       }));
 
-      const { data, error } = await supabase
-        .from('orders')
-        .insert({
-          user_id: session.user.id,
-          items: orderItems,
-          total_price: grandTotal,
-          status: 'pending'
-        })
-        .select()
-        .single();
+      const options = {
+        key: razorpayKeyId,
+        amount: functionData.amount, // from razorpay edge function (in paise)
+        currency: "INR",
+        name: "Tasty Kitchen",
+        description: "Food Order Payment",
+        order_id: functionData.id, // from razorpay edge function
+        handler: async function (response: any) {
+          // On successful payment, save the order into database
+          try {
+            const { data, error } = await supabase
+              .from('orders')
+              .insert({
+                user_id: session.user.id,
+                items: orderItems,
+                total_price: grandTotal,
+                status: 'pending'
+              })
+              .select()
+              .single();
 
-      if (error) throw error;
+            if (error) throw error;
 
-      // On success, clear cart and redirect to invoice
-      clearCart();
-      navigate(`/invoice/${data.id}`);
+            // On success, clear cart and redirect to invoice
+            clearCart();
+            navigate(`/invoice/${data.id}`);
+          } catch (err: any) {
+            console.error("Order save error:", err);
+            alert("Payment successful but failed to save order! Please contact support with Payment ID: " + response.razorpay_payment_id);
+          }
+        },
+        prefill: {
+          name: session?.user?.user_metadata?.full_name || session?.user?.email?.split('@')[0],
+          email: session?.user?.email,
+          contact: "" 
+        },
+        theme: {
+          color: "#ea580c" // primary-600
+        }
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on('payment.failed', function (response: any){
+        setError(`Payment Failed: ${response.error.description}`);
+        setLoading(false);
+      });
+      
+      rzp.open();
 
     } catch (err: any) {
       console.error("Order error:", err);
-      setError(err.message || "Failed to place order. Please try again.");
+      setError(err.message || "Failed to initiate payment. Please try again.");
       setLoading(false);
     }
   };
@@ -114,23 +174,8 @@ const Checkout = () => {
                 <CreditCard className="text-primary-600" /> Payment
               </h2>
               <div className="p-4 bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300 rounded-xl border border-blue-200 dark:border-blue-800 mb-4">
-                Test Mode: Payment gateway simulates success.
-              </div>
-              <div className="space-y-4 opacity-50 pointer-events-none">
-                <div>
-                  <label className="block text-sm font-medium mb-1 text-text-main">Card Number</label>
-                  <input type="text" className="input-field" placeholder="•••• •••• •••• ••••" defaultValue="4242 4242 4242 4242" />
-                </div>
-                <div className="flex gap-4">
-                  <div className="w-1/2">
-                    <label className="block text-sm font-medium mb-1 text-text-main">Expiry</label>
-                    <input type="text" className="input-field" placeholder="MM/YY" defaultValue="12/28" />
-                  </div>
-                  <div className="w-1/2">
-                    <label className="block text-sm font-medium mb-1 text-text-main">CVC</label>
-                    <input type="text" className="input-field" placeholder="•••" defaultValue="123" />
-                  </div>
-                </div>
+                <p className="font-semibold mb-1">Razorpay Secure Checkout</p>
+                <p className="text-sm">You will be redirected to Razorpay's secure payment gateway to complete your purchase using UPI, Card, Netbanking, or Wallet.</p>
               </div>
             </div>
 
@@ -148,7 +193,7 @@ const Checkout = () => {
                     <span className="font-mono bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded text-xs">{item.qty}x</span>
                     <span className="truncate max-w-[150px]">{item.name}</span>
                   </span>
-                  <span className="font-medium text-text-main">${(item.price * item.qty).toFixed(2)}</span>
+                  <span className="font-medium text-text-main">₹{(item.price * item.qty).toFixed(2)}</span>
                 </div>
               ))}
             </div>
@@ -156,17 +201,17 @@ const Checkout = () => {
             <div className="border-t border-[var(--border-color)] pt-4 space-y-3 mb-6">
               <div className="flex justify-between text-sm text-text-muted">
                 <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>₹{subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-sm text-text-muted">
                 <span>Tax (5%)</span>
-                <span>${tax.toFixed(2)}</span>
+                <span>₹{tax.toFixed(2)}</span>
               </div>
             </div>
             
             <div className="flex justify-between items-center border-t border-[var(--border-color)] pt-4 mb-8 text-xl font-bold">
               <span>Total</span>
-              <span className="text-primary-600">${grandTotal.toFixed(2)}</span>
+              <span className="text-primary-600">₹{grandTotal.toFixed(2)}</span>
             </div>
             
             <button 

@@ -62,7 +62,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
         <div className="flex items-center justify-between mt-auto">
           <span className="font-bold text-lg text-primary-600">
-            ${item.price.toFixed(2)}
+            ₹{item.price.toFixed(2)}
           </span>
           <button
             onClick={handleAddToCart}

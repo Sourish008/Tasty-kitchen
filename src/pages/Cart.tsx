@@ -47,7 +47,7 @@ const Cart = () => {
                 <Link to={`/item/${item.id}`} className="font-bold text-lg text-text-h hover:text-primary-600 transition-colors">
                   {item.name}
                 </Link>
-                <div className="font-bold text-primary-600">${item.price.toFixed(2)}</div>
+                <div className="font-bold text-primary-600">₹{item.price.toFixed(2)}</div>
               </div>
               
               <div className="flex items-center gap-6 w-full sm:w-auto justify-between sm:justify-end">
@@ -68,7 +68,7 @@ const Cart = () => {
                 </div>
                 
                 <div className="font-bold w-20 text-right text-text-h">
-                  ${(item.price * item.qty).toFixed(2)}
+                  ₹{(item.price * item.qty).toFixed(2)}
                 </div>
                 
                 <button 
@@ -94,7 +94,7 @@ const Cart = () => {
             <div className="space-y-4 mb-6">
               <div className="flex justify-between text-text-muted">
                 <span>Subtotal ({getTotalItems()} items)</span>
-                <span className="font-medium text-text-main">${getTotalPrice().toFixed(2)}</span>
+                <span className="font-medium text-text-main">₹{getTotalPrice().toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-text-muted">
                 <span>Taxes & Fees</span>
@@ -104,7 +104,7 @@ const Cart = () => {
             
             <div className="flex justify-between items-center border-t border-[var(--border-color)] pt-6 mb-8 text-xl font-bold">
               <span>Estimated Total</span>
-              <span className="text-primary-600">${getTotalPrice().toFixed(2)}</span>
+              <span className="text-primary-600">₹{getTotalPrice().toFixed(2)}</span>
             </div>
             
             <button 

@@ -42,7 +42,7 @@ const AdminDashboard = () => {
   }, []);
 
   const statCards = [
-    { title: 'Total Revenue', value: `$${stats.totalRevenue.toFixed(2)}`, icon: TrendingUp, color: 'text-green-500', bg: 'bg-green-100 dark:bg-green-900/30' },
+    { title: 'Total Revenue', value: `₹${stats.totalRevenue.toFixed(2)}`, icon: TrendingUp, color: 'text-green-500', bg: 'bg-green-100 dark:bg-green-900/30' },
     { title: 'Total Orders', value: stats.totalOrders, icon: ShoppingBag, color: 'text-blue-500', bg: 'bg-blue-100 dark:bg-blue-900/30' },
     { title: 'Pending Orders', value: stats.pendingOrders, icon: Users, color: 'text-orange-500', bg: 'bg-orange-100 dark:bg-orange-900/30' },
     { title: 'Menu Items', value: stats.totalItems, icon: Utensils, color: 'text-purple-500', bg: 'bg-purple-100 dark:bg-purple-900/30' },

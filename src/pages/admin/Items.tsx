@@ -103,7 +103,7 @@ const AdminItems = () => {
                 <input required value={name} onChange={e=>setName(e.target.value)} type="text" className="input-field bg-gray-50 dark:bg-gray-900" />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Price ($)</label>
+                <label className="block text-sm font-medium mb-1">Price (₹)</label>
                 <input required value={price} onChange={e=>setPrice(e.target.value)} type="number" step="0.01" className="input-field bg-gray-50 dark:bg-gray-900" />
               </div>
             </div>
@@ -171,7 +171,7 @@ const AdminItems = () => {
                         {item.category}
                       </span>
                     </td>
-                    <td className="p-4 font-medium">${item.price.toFixed(2)}</td>
+                    <td className="p-4 font-medium">₹{item.price.toFixed(2)}</td>
                     <td className="p-4 text-center">
                       <button onClick={() => handleToggleAvailable(item.id, item.is_available)} title="Toggle Availability">
                         {item.is_available 

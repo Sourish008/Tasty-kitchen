@@ -112,7 +112,7 @@ const Account = () => {
                         {order.status === 'delivered' && <CheckCircle size={12} />}
                         {order.status}
                       </span>
-                      <span className="font-bold text-lg text-primary-600">${Number(order.total_price).toFixed(2)}</span>
+                      <span className="font-bold text-lg text-primary-600">₹{Number(order.total_price).toFixed(2)}</span>
                     </div>
                   </div>
                   

@@ -124,7 +124,7 @@ const ItemDetail = () => {
           </h1>
           
           <div className="text-3xl font-bold text-primary-600 mb-8">
-            ${item.price.toFixed(2)}
+            ₹{item.price.toFixed(2)}
           </div>
           
           <p className="text-lg text-text-muted mb-10 leading-relaxed border-l-4 border-primary-200 pl-6 py-2">
@@ -155,7 +155,7 @@ const ItemDetail = () => {
 
             <div className="border-t border-[var(--border-color)] pt-6 flex flex-col sm:flex-row gap-4 justify-between items-center">
               <div className="text-text-muted">
-                Total: <span className="text-2xl font-bold text-text-h ml-2">${(item.price * qty).toFixed(2)}</span>
+                Total: <span className="text-2xl font-bold text-text-h ml-2">₹{(item.price * qty).toFixed(2)}</span>
               </div>
               <button 
                 onClick={handleAddToCart}

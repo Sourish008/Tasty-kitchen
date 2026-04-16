@@ -64,7 +64,7 @@ const AdminOrders = () => {
                     </div>
                     <span className="text-xs font-bold text-primary-600 mt-1 inline-block">({order.items.reduce((acc:any, i:any)=>acc+i.qty, 0)} items)</span>
                   </td>
-                  <td className="p-4 font-bold text-primary-600">${Number(order.total_price).toFixed(2)}</td>
+                  <td className="p-4 font-bold text-primary-600">₹{Number(order.total_price).toFixed(2)}</td>
                   <td className="p-4 text-center">
                     <select 
                       value={order.status}

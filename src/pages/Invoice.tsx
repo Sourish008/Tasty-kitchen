@@ -132,8 +132,8 @@ const Invoice = () => {
                 <tr key={item.id} className="border-b border-[var(--border-color)] text-text-main group hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                   <td className="py-4 font-medium">{item.name}</td>
                   <td className="py-4 text-center font-mono">{item.qty}</td>
-                  <td className="py-4 text-right">${Number(item.price).toFixed(2)}</td>
-                  <td className="py-4 text-right font-medium">${(item.price * item.qty).toFixed(2)}</td>
+                  <td className="py-4 text-right">₹{Number(item.price).toFixed(2)}</td>
+                  <td className="py-4 text-right font-medium">₹{(item.price * item.qty).toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
@@ -148,15 +148,15 @@ const Invoice = () => {
             <div className="w-full md:w-1/3 space-y-3 p-6 bg-surface dark:bg-gray-900 rounded-2xl border border-[var(--border-color)]">
               <div className="flex justify-between text-text-muted">
                 <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>₹{subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-text-muted">
                 <span>Tax (5%)</span>
-                <span>${tax.toFixed(2)}</span>
+                <span>₹{tax.toFixed(2)}</span>
               </div>
               <div className="flex justify-between mt-4 pt-4 border-t border-[var(--border-color)] text-xl font-bold">
                 <span className="text-text-main">Grand Total</span>
-                <span className="text-primary-600">${Number(order.total_price).toFixed(2)}</span>
+                <span className="text-primary-600">₹{Number(order.total_price).toFixed(2)}</span>
               </div>
             </div>
           </div>
