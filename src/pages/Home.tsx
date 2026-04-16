@@ -61,7 +61,7 @@ const Home = () => {
             <span>Discover culinary mastery</span>
           </div>
           
-          <h1 className="text-6xl sm:text-7xl font-bold font-heading text-text-h tracking-tight mb-8 max-w-4xl leading-tight">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-heading text-text-h tracking-tight mb-8 max-w-4xl leading-tight">
             Flavors that inspire <br/> 
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-accent">every bite.</span>
           </h1>

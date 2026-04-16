@@ -26,7 +26,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
       id: item.id,
       name: item.name,
       price: item.price,
-      qty: 1,
       image_url: item.image_url
     });
   };

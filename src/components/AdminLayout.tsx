@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { useAuthStore } from '../../stores/useAuthStore';
+import { useAuthStore } from '../stores/useAuthStore';
 import { 
   LayoutDashboard, 
   Utensils, 

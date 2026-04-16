@@ -4,7 +4,7 @@ import { useAuthStore } from './stores/useAuthStore';
 
 // Layouts and Shared Components
 import Layout from './components/Layout';
-// import AdminLayout from './components/AdminLayout';
+import AdminLayout from './components/AdminLayout';
 
 // Public Pages
 import Home from './pages/Home';
