@@ -29,7 +29,10 @@ const ItemCard = ({ item }: ItemCardProps) => {
       price: item.price,
       image_url: item.image_url
     });
-    toast.success(`Added to cart!`, `${item.name} has been added to your order.`);
+    
+    // Get updated total directly from store state
+    const totalItems = useCartStore.getState().getTotalItems();
+    toast.success(`Added to cart!`, `${item.name} added. You now have ${totalItems} item${totalItems === 1 ? '' : 's'} in your cart.`);
   };
 
   return (

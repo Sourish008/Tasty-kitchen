@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ShoppingCart, ArrowLeft, AlertCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useCartStore } from '../stores/useCartStore';
+import { toast } from '../stores/useToastStore';
 
 const ItemDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -49,8 +50,9 @@ const ItemDetail = () => {
       image_url: item.image_url
     });
     
-    // Provide some visual feedback (maybe a toast in the future)
-    navigate('/cart');
+    // Show toast with updated cart count
+    const totalItems = useCartStore.getState().getTotalItems();
+    toast.success(`Added to cart!`, `${qty}x ${item.name} added. You now have ${totalItems} item${totalItems === 1 ? '' : 's'} in your cart.`);
   };
 
   if (loading) {
