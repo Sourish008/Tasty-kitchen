@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="col-span-1 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 text-white font-heading font-bold text-xl mb-4">
               <UtensilsCrossed className="text-primary-500" size={24} />
-              <span>Tasty Kitchen</span>
+              <span>Rumela's Kitchen</span>
             </Link>
             <p className="text-sm leading-relaxed mb-6 text-gray-400">
               Experience the best culinary delights prepared with passion and the finest ingredients since 2025.
@@ -68,7 +68,7 @@ const Footer = () => {
         </div>
         
         <div className="pt-8 border-t border-gray-800 text-sm text-gray-500 text-center md:flex justify-between items-center">
-          <p>© {new Date().getFullYear()} Tasty Kitchen Platform. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Rumela's Kitchen. All rights reserved.</p>
           <div className="gap-6 mt-4 md:mt-0 flex justify-center">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>

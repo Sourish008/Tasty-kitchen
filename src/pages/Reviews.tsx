@@ -37,7 +37,7 @@ const Reviews = () => {
         </div>
         <h1 className="text-4xl md:text-5xl font-bold font-heading text-text-h mb-6">Hear From Our Guests</h1>
         <p className="text-xl text-text-muted max-w-2xl mx-auto">
-          We take pride in our service. Read what our wonderful customers have to say about their experience at Tasty Kitchen.
+          We take pride in our service. Read what our wonderful customers have to say about their experience at Rumela's Kitchen.
         </p>
       </div>
 

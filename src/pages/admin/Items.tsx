@@ -84,11 +84,11 @@ const AdminItems = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold font-heading text-text-h">Manage Menu Items</h1>
+      <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold font-heading text-text-h">Manage Menu Items</h1>
         {!isEditing && (
-          <button onClick={() => setIsEditing(true)} className="btn-primary flex items-center gap-2 text-sm px-4 shadow-sm">
-            <Plus size={16} /> Add New Item
+          <button onClick={() => setIsEditing(true)} className="btn-primary flex items-center gap-2 text-sm px-4 shadow-sm shrink-0">
+            <Plus size={16} /> Add Item
           </button>
         )}
       </div>
@@ -142,7 +142,7 @@ const AdminItems = () => {
       ) : (
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-[var(--border-color)] overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <table className="w-full text-left border-collapse min-w-[600px]">
               <thead>
                 <tr className="bg-gray-50 dark:bg-gray-900 border-b border-[var(--border-color)]">
                   <th className="p-4 font-bold text-text-muted">Item</th>

@@ -5,6 +5,7 @@ import { useAuthStore } from './stores/useAuthStore';
 // Layouts and Shared Components
 import Layout from './components/Layout';
 import AdminLayout from './components/AdminLayout';
+import ToastContainer from './components/ToastContainer';
 
 // Public Pages
 import Home from './pages/Home';
@@ -54,7 +55,7 @@ function App() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="animate-pulse flex flex-col items-center">
           <div className="h-12 w-12 border-4 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
-          <p className="mt-4 text-gray-500">Loading Tasty Kitchen...</p>
+          <p className="mt-4 text-gray-500">Loading Rumela's Kitchen...</p>
         </div>
       </div>
     );
@@ -92,6 +93,7 @@ function App() {
           <Route path="reviews" element={<AdminReviews />} />
         </Route>
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 }

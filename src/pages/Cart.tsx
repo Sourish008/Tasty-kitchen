@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Minus, Plus, Trash2, ArrowRight, ShoppingBag, ArrowLeft } from 'lucide-react';
 import { useCartStore } from '../stores/useCartStore';
+import { toast } from '../stores/useToastStore';
 
 const Cart = () => {
   const { items, updateQuantity, removeItem, clearCart, getTotalPrice, getTotalItems } = useCartStore();
@@ -26,7 +27,7 @@ const Cart = () => {
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl md:text-4xl font-bold font-heading text-text-h">Your Cart</h1>
         <button 
-          onClick={clearCart}
+          onClick={() => { clearCart(); toast.warning('Cart cleared', 'All items have been removed from your cart.'); }}
           className="text-red-500 hover:text-red-700 font-medium text-sm flex items-center gap-1 transition-colors"
         >
           <Trash2 size={16} /> Clear All
@@ -72,7 +73,7 @@ const Cart = () => {
                 </div>
                 
                 <button 
-                  onClick={() => removeItem(item.id)}
+                  onClick={() => { toast.info('Item removed', `${item.name} removed from cart.`); removeItem(item.id); }}
                   className="text-gray-400 hover:text-red-500 transition-colors p-2"
                 >
                   <Trash2 size={18} />

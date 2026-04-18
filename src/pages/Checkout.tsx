@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../stores/useAuthStore';
 import { useCartStore } from '../stores/useCartStore';
 import { CreditCard, Truck, Check } from 'lucide-react';
+import { toast } from '../stores/useToastStore';
 
 const Checkout = () => {
   const { session } = useAuthStore();
@@ -69,11 +70,10 @@ const Checkout = () => {
         key: razorpayKeyId,
         amount: functionData.amount, // from razorpay edge function (in paise)
         currency: "INR",
-        name: "Tasty Kitchen",
+        name: "Rumela's Kitchen",
         description: "Food Order Payment",
         order_id: functionData.id, // from razorpay edge function
         handler: async function (response: any) {
-          // On successful payment, save the order into database
           try {
             const { data, error } = await supabase
               .from('orders')
@@ -88,12 +88,12 @@ const Checkout = () => {
 
             if (error) throw error;
 
-            // On success, clear cart and redirect to invoice
+            toast.success('Order placed! 🎉', `Your order of ₹${grandTotal.toFixed(2)} is confirmed and being prepared.`, 5000);
             clearCart();
             navigate(`/invoice/${data.id}`);
           } catch (err: any) {
-            console.error("Order save error:", err);
-            alert("Payment successful but failed to save order! Please contact support with Payment ID: " + response.razorpay_payment_id);
+            console.error('Order save error:', err);
+            toast.error('Order save failed', 'Payment was successful but we could not save your order. Contact support with Payment ID: ' + response.razorpay_payment_id, 8000);
           }
         },
         prefill: {
@@ -107,16 +107,19 @@ const Checkout = () => {
       };
 
       const rzp = new (window as any).Razorpay(options);
-      rzp.on('payment.failed', function (response: any){
-        setError(`Payment Failed: ${response.error.description}`);
+      rzp.on('payment.failed', function (response: any) {
+        const desc = response?.error?.description || 'Unknown error';
+        toast.error('Payment failed', desc, 6000);
+        setError(`Payment Failed: ${desc}`);
         setLoading(false);
       });
       
       rzp.open();
 
     } catch (err: any) {
-      console.error("Order error:", err);
-      setError(err.message || "Failed to initiate payment. Please try again.");
+      console.error('Order error:', err);
+      toast.error('Could not initiate payment', err.message || 'Please try again.');
+      setError(err.message || 'Failed to initiate payment. Please try again.');
       setLoading(false);
     }
   };

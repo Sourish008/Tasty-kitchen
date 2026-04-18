@@ -50,24 +50,24 @@ const AdminDashboard = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold font-heading mb-8 text-text-h">Dashboard Overview</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold font-heading mb-6 text-text-h">Dashboard Overview</h1>
       
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[1,2,3,4].map(i => <div key={i} className="animate-pulse bg-surface dark:bg-gray-800 h-32 rounded-2xl"></div>)}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[1,2,3,4].map(i => <div key={i} className="animate-pulse bg-surface dark:bg-gray-800 h-28 rounded-2xl"></div>)}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {statCards.map((card, i) => {
             const Icon = card.icon;
             return (
-              <div key={i} className="glass-card p-6 bg-white dark:bg-gray-800 flex items-center justify-between border border-[var(--border-color)]">
-                <div>
-                  <p className="text-sm text-text-muted mb-1">{card.title}</p>
-                  <h3 className="text-3xl font-bold text-text-h">{card.value}</h3>
+              <div key={i} className="glass-card p-4 sm:p-6 bg-white dark:bg-gray-800 flex items-center justify-between border border-[var(--border-color)] gap-2">
+                <div className="min-w-0">
+                  <p className="text-xs sm:text-sm text-text-muted mb-1 truncate">{card.title}</p>
+                  <h3 className="text-xl sm:text-3xl font-bold text-text-h truncate">{card.value}</h3>
                 </div>
-                <div className={`p-4 rounded-full ${card.bg} ${card.color}`}>
-                  <Icon size={24} />
+                <div className={`p-3 rounded-full shrink-0 ${card.bg} ${card.color}`}>
+                  <Icon size={20} />
                 </div>
               </div>
             );
@@ -75,7 +75,7 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      <div className="mt-12 glass-card p-8 bg-white dark:bg-gray-800 border border-[var(--border-color)] text-center">
+      <div className="mt-8 glass-card p-6 sm:p-8 bg-white dark:bg-gray-800 border border-[var(--border-color)] text-center">
         <Utensils className="mx-auto text-primary-500 mb-4" size={48} />
         <h2 className="text-xl font-bold mb-2">Welcome to your Restaurant Panel</h2>
         <p className="text-text-muted max-w-md mx-auto">Use the sidebar to manage your food items, update incoming orders, and moderate customer reviews.</p>

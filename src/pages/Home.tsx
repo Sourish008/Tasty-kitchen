@@ -67,7 +67,7 @@ const Home = () => {
           </h1>
           
           <p className="text-xl text-text-muted max-w-2xl mx-auto mb-12">
-            Welcome to Tasty Kitchen. The digital restaurant experience where quality meets convenience. Order online with ease.
+            Welcome to Rumela's Kitchen. The digital restaurant experience where quality meets convenience. Order online with ease.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">

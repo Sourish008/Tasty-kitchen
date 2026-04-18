@@ -57,10 +57,13 @@ const AdminReviews = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold font-heading text-text-h">Manage Reviews</h1>
-        <button onClick={() => setShowAdd(!showAdd)} className={`${showAdd ? 'btn-secondary text-red-500 border-red-500' : 'btn-primary'} px-4 py-2 flex items-center gap-2 shadow-sm text-sm`}>
-          {showAdd ? 'Cancel' : 'Add Manual Review'}
+      <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold font-heading text-text-h">Manage Reviews</h1>
+        <button
+          onClick={() => setShowAdd(!showAdd)}
+          className={`${showAdd ? 'btn-secondary text-red-500 border-red-500' : 'btn-primary'} px-4 py-2 flex items-center gap-2 shadow-sm text-sm shrink-0`}
+        >
+          {showAdd ? 'Cancel' : 'Add Review'}
         </button>
       </div>
 

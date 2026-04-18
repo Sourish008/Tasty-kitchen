@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { LogIn, UserPlus } from 'lucide-react';
+import { toast } from '../stores/useToastStore';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -26,8 +27,7 @@ const Login = () => {
           password,
         });
         if (error) throw error;
-        // Optionally show "Check email for confirmation" if required by Supabase settings
-        alert("Sign up successful! Please log in.");
+        toast.success('Account created!', 'Sign up successful. Please log in.');
         setIsSignUp(false);
       } else {
         const { error } = await supabase.auth.signInWithPassword({
@@ -35,10 +35,12 @@ const Login = () => {
           password,
         });
         if (error) throw error;
+        toast.success('Welcome back! 👋', `Logged in as ${email}.`);
         navigate(from, { replace: true });
       }
     } catch (err: any) {
-      setError(err.message || "An error occurred during authentication.");
+      toast.error('Authentication failed', err.message || 'An error occurred.');
+      setError(err.message || 'An error occurred during authentication.');
     } finally {
       setLoading(false);
     }

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ShoppingCart } from 'lucide-react';
 import { useCartStore } from '../stores/useCartStore';
+import { toast } from '../stores/useToastStore';
 
 // Temporary type since we don't have types generated yet
 type FoodItem = {
@@ -21,13 +22,14 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const { addItem } = useCartStore();
 
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent navigating if clicked via Link wrapper
+    e.preventDefault();
     addItem({
       id: item.id,
       name: item.name,
       price: item.price,
       image_url: item.image_url
     });
+    toast.success(`Added to cart!`, `${item.name} has been added to your order.`);
   };
 
   return (

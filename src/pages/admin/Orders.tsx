@@ -30,7 +30,7 @@ const AdminOrders = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold font-heading text-text-h mb-8">Manage Orders</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold font-heading text-text-h mb-6">Manage Orders</h1>
 
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-[var(--border-color)] overflow-hidden">
         <div className="overflow-x-auto">

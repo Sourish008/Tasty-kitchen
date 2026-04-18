@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, User, UtensilsCrossed, LogOut, Settings, Menu as MenuIcon, X } from 'lucide-react';
 import { useAuthStore } from '../stores/useAuthStore';
 import { useCartStore } from '../stores/useCartStore';
+import { toast } from '../stores/useToastStore';
 
 const Navbar = () => {
   const { session, role, signOut } = useAuthStore();
@@ -12,6 +13,7 @@ const Navbar = () => {
 
   const handleSignOut = async () => {
     await signOut();
+    toast.info('Signed out', 'You have been signed out successfully.');
     navigate('/');
   };
 
@@ -23,7 +25,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           <Link to="/" onClick={closeMenu} className="flex items-center gap-2 text-primary-600 font-heading font-bold text-2xl tracking-tight transition-transform hover:scale-105 active:scale-95">
             <UtensilsCrossed size={28} />
-            <span>Tasty Kitchen</span>
+            <span>Rumela's Kitchen</span>
           </Link>
 
           {/* Desktop Navigation */}
